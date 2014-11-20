@@ -1,9 +1,8 @@
-//module.exports = function(){
+module.exports = function(inputHtmlFilePath){
 	var htmlparser = require("htmlparser");
 	var fs = require('fs');
-	var rawHtml = fs.readFileSync('./data/formResponses1.html');
-
-
+	var rawHtml = fs.readFileSync(inputHtmlFilePath);
+	//var rawHtml = fs.readFileSync('./data/formResponses1.html');
 
 	var handler = new htmlparser.DefaultHandler(function (error, dom) {
 	    if (error){
@@ -27,6 +26,7 @@
 		inputRow.push(prefix.data);
 	}
 
+	// walk the dom structure and parse each row
 	var tableArray = handler.dom[4].children[0].children[1].children;
 	for (rowIdx = 2; rowIdx<tableArray.length; rowIdx++){
 		var rowArray = tableArray[rowIdx].children;
@@ -38,14 +38,12 @@
 					prefix = rowArray[cellIdx].children[0].children[0];
 				}
 				newRowObject[inputRow[cellIdx-1]] = prefix.data;
-				//console.log('cell contents: ', prefix.data);
 			} else {
 				newRowObject[inputRow[cellIdx-1]] = '';
 			}
 		}
-		inputArray.push(newRowObject);
-		
+		inputArray.push(newRowObject);	
 	}
-	debugger;		
-	//sys.puts(sys.inspect(handler.dom, false, null));
-//}
+
+	return inputArray;
+}
