@@ -1,0 +1,22 @@
+{
+  "name": "hatTeamSelector",
+  "version": "0.0.0",
+  "description": "hatTeamSelector ===============",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ianwcarlson/hatTeamSelector"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ianwcarlson/hatTeamSelector/issues"
+  },
+  "homepage": "https://github.com/ianwcarlson/hatTeamSelector",
+  "dependencies": {
+    "htmlparser": "^1.7.7"
+  }
+}

@@ -1,0 +1,32 @@
+//module.exports = function(){
+	var htmlparser = require("htmlparser");
+	var fs = require('fs');
+	var rawHtml = fs.readFileSync('./data/formResponses1.html');
+	debugger;
+
+
+	var handler = new htmlparser.DefaultHandler(function (error, dom) {
+	    if (error){
+
+	    } else {
+
+	    }
+	});
+	var parser = new htmlparser.Parser(handler);
+	parser.parseComplete(rawHtml);
+
+	var inputArray = [];
+	var inputRow = {};
+	var headerRowArray = handler.dom[4].children[0].children[1].children[0].children;
+
+	for (i=1; i<headerRowArray.length; i++){
+		var prefix = headerRowArray[i].children[0];	
+		if (prefix.type === "tag"){
+			prefix = headerRowArray[i].children[0].children[0];
+		} 
+		inputRow[prefix.data] = '';
+	}
+
+	
+	//sys.puts(sys.inspect(handler.dom, false, null));
+//}
