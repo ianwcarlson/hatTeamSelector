@@ -1,7 +1,7 @@
 var underscore = require('underscore');
 
 var parser = require('./htmlToJson.js');
-var parsedList = parser('./data/formResponses1.html');
+var parsedList = parser('./data/formResponses2.html');
 
 var girls = underscore.where(parsedList, {'Gender':'Female'});
 
@@ -56,20 +56,22 @@ function selectNewTeamClass(){
 //			},...
 //		],...
 //	]
+
 function distillPlayerList(rawPlayerList){
 	newList = [];
-	for (var i=0; i<rawPlayerList.length; i++){
+	//for (var i=0; i<rawPlayerList.length; i++){
+	underscore.each(rawPlayerList, function(element, index, list){
 		var newPlayer = {};
-		newPlayer.firstName = rawPlayerList[i]['First Name'];
-		newPlayer.lastName = rawPlayerList[i]['Last Name'];
-		newPlayer.state = rawPlayerList[i]['State'];
-		newPlayer.skill = parseInt(rawPlayerList[i]['Ultimate Skill'], 10);
-		newPlayer.speed = parseInt(rawPlayerList[i]['Ultimate Speed'], 10);
-		newPlayer.baggage = rawPlayerList[i]['Name of Baggage Player (person you want to play with)'];
-		newPlayer.gender = rawPlayerList[i]['Gender'];
-		newPlayer.bothDays = rawPlayerList[i]['Will you attend both days'];
+		newPlayer.firstName = element['First Name'].toLowerCase();
+		newPlayer.lastName = element['Last Name'].toLowerCase();
+		newPlayer.state = element['State'].toLowerCase();
+		newPlayer.skill = parseInt(element['Ultimate Skill'], 10);
+		newPlayer.speed = parseInt(element['Ultimate Speed'], 10);
+		newPlayer.baggage = element['Name of Baggage Player (person you want to play with)'].toLowerCase();
+		newPlayer.gender = element['Gender'].toLowerCase();
+		newPlayer.bothDays = element['Will you attend both days'].toLowerCase();
 		newList.push(newPlayer);
-	}
+	})
 	return newList;
 }	
 
