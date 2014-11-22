@@ -18,6 +18,7 @@
   "homepage": "https://github.com/ianwcarlson/hatTeamSelector",
   "dependencies": {
     "htmlparser": "^1.7.7",
-    "underscore": "^1.7.0"
+    "underscore": "^1.7.0",
+    "json2csv": "^2.2.1"
   }
 }
