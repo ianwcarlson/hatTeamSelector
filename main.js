@@ -15,7 +15,33 @@ var selectNewTeam = selectNewTeamClass();
 
 var findBaggagePairs = require('./findBaggagePairs.js');
 var baggageList = findBaggagePairs(conditionedPlayerList);
-debugger;
+
+// flatten and sort by skill level in descending order
+var sortedBaggageList = underscore.sortBy(baggageList, function(listItem){
+	return listItem[0].skill + listItem[1].skill;
+});
+sortedBaggageList.reverse();
+var flattenedBaggageList = [];
+underscore.each(sortedBaggageList, function(element, index, list){
+	flattenedBaggageList.push(element[0]);
+	flattenedBaggageList.push(element[1]);
+})
+
+
+// sort by skill level in descending order
+var remainingPlayerList = underscore.difference(conditionedPlayerList, flattenedBaggageList);
+var sortedRemainingPlayerlist = underscore.sortBy(remainingPlayerList, function(item){
+	return item.skill;
+});
+sortedRemainingPlayerlist.reverse();
+
+var remainingFemalePlayers = underscore.where(sortedRemainingPlayerlist, function(item){
+	item.gender === 'female';
+});
+var remainingMalePlayers = underscore.where(sortedRemainingPlayerlist, function(item){
+	item.gender === 'male';
+});
+
 // initialize team lists
 var numTeams = 8;
 var team2DList = [];
@@ -23,17 +49,35 @@ for (var i=0; i<numTeams; i++){
 	team2DList.push([]);
 }
 
-debugger;
-
 // fill up team side bars
 var sideBar2DList = team2DList;
-underscore.each(baggageList, function(element, index, list){
-	debugger;
+underscore.each(sortedBaggageList, function(element, index, list){
 	var idx = selectNewTeam.getTeamSelect();
-	sideBar2DList[idx].push(element[0]);
-	sideBar2DList[idx].push(element[1]);
+	sideBar2DList[idx].push({'female': [], 'male': []});
+	divideGender(sideBar2DList[idx][0], element[0]);
+	divideGender(sideBar2DList[idx][0], element[1]);
 	selectNewTeam.selectNewTeam();
 })
+
+debugger;
+
+// start loading up the team lists
+underscore.each(team2DList, function(outerElement, index, list){
+	underscore.each(outerElement, function(innerElement, index, list){
+
+	}
+})
+
+
+function divideGender(team, player){
+	if (player.gender === 'female'){
+		team.female.push(player);
+	} else if (player.gender === 'male'){
+		team.male.push(player);
+	} else {
+		console.log('gender not recognized');
+	}
+}
 
 function selectNewTeamClass(){
 	var teamSelect = 0;
@@ -63,6 +107,9 @@ function selectNewTeamClass(){
 		selectNewTeam: selectNewTeam,
 		getTeamSelect: function(){
 			return teamSelect;
+		},
+		resetTeamIndex: function(){
+			teamSelect = 0;
 		}
 	};
 }
