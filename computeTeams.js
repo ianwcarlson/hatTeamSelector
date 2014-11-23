@@ -1,8 +1,8 @@
-exports.run = function(){
+exports.run = function(inputFile){
 
 	var underscore = require('underscore');
 	var parser = require('./htmlToJson.js');
-	var parsedList = parser('./data/formResponses2.html');
+	var parsedList = parser(inputFile);
 
 	//var sortedListBySkill = underscore.sortBy(parsedList, function(listItem){
 	//	return listItem['Ultimate Skill'];
@@ -64,8 +64,6 @@ exports.run = function(){
 	loadTeams('male', remainingMalePlayers);
 	selectNewTeam.resetTeamIndex();
 
-	var outputToCsv = require('./outputToCsv.js');
-	outputToCsv.writeCsv(team2DList);
 
 	//function definitions
 	function loadTeams(gender, remainingPlayers){
@@ -162,5 +160,7 @@ exports.run = function(){
 			newList.push(newPlayer);
 		})
 		return newList;
-	}	
+	}
+
+	return team2DList;	
 };

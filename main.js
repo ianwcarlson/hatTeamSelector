@@ -1,2 +1,5 @@
 var computeTeams = require('./computeTeams.js');
-computeTeams.run();
+var team2DList = computeTeams.run('./data/formResponses2.html');
+
+var outputToCsv = require('./outputToCsv.js');
+outputToCsv.writeCsv(team2DList);
