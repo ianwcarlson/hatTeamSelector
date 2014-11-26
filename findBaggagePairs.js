@@ -42,7 +42,7 @@ module.exports = function(inputPlayerList){
 			
 			
 		} else {
-			console.log('Didnt find ', lastName, ' in baggage list');
+			//console.log('Didnt find ', lastName, ' in baggage list');
 			baggageList.splice(0, 1);
 		}
 	}

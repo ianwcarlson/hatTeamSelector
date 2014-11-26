@@ -1,14 +1,9 @@
-exports.run = function(inputFile){
+exports.run = function(inputList, numTeams){
 
 	var underscore = require('underscore');
-	var parser = require('./htmlToJson.js');
-	var parsedList = parser(inputFile);
 
-	//var sortedListBySkill = underscore.sortBy(parsedList, function(listItem){
-	//	return listItem['Ultimate Skill'];
-	//});
-
-	var conditionedPlayerList = distillPlayerList(parsedList);
+	var conditionedPlayerList = distillPlayerList(
+		underscore.shuffle(inputList));
 
 	var selectNewTeam = selectNewTeamClass();
 
@@ -37,15 +32,15 @@ exports.run = function(inputFile){
 	var remainingFemalePlayers = underscore.where(sortedRemainingPlayerList, {'gender': 'female'});
 	var remainingMalePlayers = underscore.where(sortedRemainingPlayerList, {'gender': 'male'});
 	// initialize team lists
-	var NUM_TEAMS = 8;
+	var numTeams = 8;
 	var team2DList = [];
-	for (var i=0; i<NUM_TEAMS; i++){
+	for (var i=0; i<numTeams; i++){
 		team2DList.push([]);
 	}
 
 	// fill up team side bars
 	var sideBar2DList = [];
-	for (var i=0; i<NUM_TEAMS; i++){
+	for (var i=0; i<numTeams; i++){
 		sideBar2DList.push([]);
 	}
 	underscore.each(sideBar2DList, function(element, idx, list){
@@ -60,7 +55,7 @@ exports.run = function(inputFile){
 	selectNewTeam.resetTeamIndex();
 
 	loadTeams('female', remainingFemalePlayers);
-	selectNewTeam.resetTeamIndex();
+	//selectNewTeam.resetTeamIndex();
 	loadTeams('male', remainingMalePlayers);
 	selectNewTeam.resetTeamIndex();
 
@@ -115,7 +110,7 @@ exports.run = function(inputFile){
 		var increment = 1;
 		var firstTime = false;
 		function selectNewTeam(){
-			if (teamSelect === NUM_TEAMS-1){
+			if (teamSelect === numTeams-1){
 				if (firstTime){
 					increment = 0;
 					firstTime = false;

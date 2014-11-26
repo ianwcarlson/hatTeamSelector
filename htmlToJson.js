@@ -1,6 +1,7 @@
 module.exports = function(inputHtmlFilePath){
 	var htmlparser = require("htmlparser");
 	var fs = require('fs');
+
 	var rawHtml = fs.readFileSync(inputHtmlFilePath);
 	//var rawHtml = fs.readFileSync('./data/formResponses1.html');
 
@@ -44,6 +45,8 @@ module.exports = function(inputHtmlFilePath){
 		}
 		inputArray.push(newRowObject);	
 	}
+
+
 
 	return inputArray;
 }

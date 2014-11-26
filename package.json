@@ -20,6 +20,7 @@
     "htmlparser": "^1.7.7",
     "underscore": "^1.7.0",
     "json2csv": "^2.2.1",
-    "edit-google-spreadsheet": "^0.2.13"
+    "edit-google-spreadsheet": "^0.2.13",
+    "stats-lite": "^1.0.3"
   }
 }
