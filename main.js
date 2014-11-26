@@ -1,7 +1,7 @@
 var computeTeams = require('./computeTeams.js');
 
 var NUM_TEAMS = 8;
-var NUM_ITERATIONS = 10000;
+var NUM_ITERATIONS = 1000;
 var outcomes = [];
 var procCount = 0;
 var MAX_CNT_PER_TICK = 10;
@@ -35,7 +35,7 @@ var _ = require('underscore');
 var minValue = _.min(outcomes, function(item){
 	return item.stdev;
 });
-debugger;
+console.log('Minimum stdev: ', minValue.stdev);
 var outputToCsv = require('./outputToCsv.js');
 
-outputToCsv.writeCsv(team2DList);
+outputToCsv.writeCsv(minValue.teamList);
