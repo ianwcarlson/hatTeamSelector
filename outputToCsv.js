@@ -7,7 +7,6 @@ exports.writeCsv = function(teams2DArray){
 	var maxRowsPerTeam = findMaxNumPlayers(teams2DArray)+2;
 	var numCols = 4;
 
-
 	var Spreadsheet = require('edit-google-spreadsheet');
 
 	Spreadsheet.load({
@@ -26,7 +25,7 @@ exports.writeCsv = function(teams2DArray){
 	        throw err;
 	    }
 	    var rowIdx = 0;
-		var colIdx = 0;
+		var colIdx = 1;
 	    teams2DArray.forEach(function(element, index){
 
 	    	rowIdx = calcNewRowIdx(rowIdx, index, maxRowsPerTeam);
@@ -91,7 +90,7 @@ exports.writeCsv = function(teams2DArray){
 
 	function calcNewColIdx(oldColIdx, index, numCols){
 		if (index % 4 === 0 || index === 0){
-			oldColIdx = 0;
+			oldColIdx = 1;
 		} else {
 			oldColIdx += numCols;
 		}
