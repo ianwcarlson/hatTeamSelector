@@ -43,16 +43,6 @@ exports.writeCsv = function(teams2DArray){
 		spreadsheet.send(function(err) {
 	    	if(err) throw err;
 	    });	
-
-
-
-	    //spreadsheet.receive(function(err, rows, info) {
-	    //	if(err) throw err;
-	    //
-	    //    console.dir(rows);
-	    //    console.dir(info);
-	    //});
-
 	});
 
 	function findMaxNumPlayers(teamsArray){

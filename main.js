@@ -33,7 +33,6 @@ for (var idx=0; idx<NUM_ITERATIONS; idx++){
 }
 var _ = require('underscore');
 var minValue = _.min(outcomes, function(item){
-
 	return item.stdev;
 });
 console.log('Minimum stdev: ', minValue.stdev);
@@ -42,9 +41,13 @@ var outputToCsv = require('./outputToCsv.js');
 var bestTeamAnalytics = teamAnalyticsModule(minValue.teamList);
 
 var genderTotals = myTeamAnalytics.getGenderTotals();
+var skillByGenderTotals = myTeamAnalytics.getSkillByGenderTotals();
 var teamAnalyticsChart = require('./outputToPlotly.js');
-teamAnalyticsChart('iancarlson3000', 'ik1ayyqjkl', 
-	{size: NUM_TEAMS, genderTotals: genderTotals});
+teamAnalyticsChart('iancarlson3000', 'ik1ayyqjkl', {
+	size: NUM_TEAMS, 
+	genderTotals: genderTotals,
+	skillByGenderTotals: skillByGenderTotals
+});
 
 debugger;
 outputToCsv.writeCsv(minValue.teamList);
