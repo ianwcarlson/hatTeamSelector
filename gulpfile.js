@@ -14,7 +14,7 @@ gulp.task('watch', function(){
 
 gulp.task('docs', function(){
 	gulp.src(["*.js", "README.md"])
-	  .pipe(jsdoc('./docs'))
+	  .pipe(jsdoc('./docs'));
 });
 
 gulp.task('default', ['lint']);

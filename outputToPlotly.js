@@ -23,15 +23,15 @@
 
 /**
  * Export team metrics to Plotly web service
- * @param	{String}	username created by opening Plotly account
- * @param	{String}	key generated when opening Plotly account
- * @param	{TeamObjectType}	object that contains size, gender totals, and skill by gender totals 
+ * @param	{String}	username  - created by opening Plotly account
+ * @param	{String}	key - generated when opening Plotly account
+ * @param	{TeamObjectType[]}	teamMetricsArray object that contains size, gender totals, and skill by gender totals 
  */
-module.exports = function(username, key, teamAnalytics){
+module.exports = function(username, key, teamMetricsArray){
 	var plotly = require('plotly')(username, key);
 
-	plotSums('Gender Totals', teamAnalytics.genderTotals, 'Player Sums');
-	plotSums('Skill By Gender Totals', teamAnalytics.skillByGenderTotals, 'Skill Sums');
+	plotSums('Gender Totals', teamMetricsArray.genderTotals, 'Player Sums');
+	plotSums('Skill By Gender Totals', teamMetricsArray.skillByGenderTotals, 'Skill Sums');
 
 	/**
 	 * Main plotting function that adapts data to Plotly format and applies common 
@@ -39,23 +39,22 @@ module.exports = function(username, key, teamAnalytics){
 	 * @param	{String} filename - name of chart and what it will be saved as
 	 * @param	{TeamObjectType} totals - object that contains gender data
 	 * @param	{String} yAxisTitle - unique title for Y-axis
-	 * @memberOf outputToPlotly
-	 * @public
+	 * @private
 	 */ 
 	function plotSums(filename, totals, yAxisTitle){
 
 		var teamNames = [];
-		for (var i=0; i<teamAnalytics.size; i++){
+		for (var i=0; i<teamMetricsArray.size; i++){
 			teamNames.push(i+1);		
 		}
 
 		var boyTotals = [];
-		for (i=0; i<teamAnalytics.size; i++){
+		for (i=0; i<teamMetricsArray.size; i++){
 			boyTotals.push(totals[i].boys);
 		}
 
 		var girlTotals = [];
-		for (i=0; i<teamAnalytics.size; i++){
+		for (i=0; i<teamMetricsArray.size; i++){
 			girlTotals.push(totals[i].girls);
 		}
 

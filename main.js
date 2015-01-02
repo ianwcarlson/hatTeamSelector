@@ -46,4 +46,11 @@ require('./outputToPlotly.js')('iancarlson3000', 'ik1ayyqjkl', {
 	skillByGenderTotals: skillByGenderTotals
 });
 
-require('./outputToCsv.js')(minValue.teamList);
+var spreadsheetAuthInfo = {
+	spreadsheetID: '1V_lQ5YNCSLV9pS4PuB-XoXmc9sD4RnMOwaC8gJ_rEig',
+	worksheetID: 'od6',
+	emailID: '645548898529-dpda3l2486rg903aakmq9438ok8q88k2@developer.gserviceaccount.com',
+	keyFile: 'my-key-file.pem'
+};
+
+require('./outputToGDoc.js')(minValue.teamList, spreadsheetAuthInfo);
