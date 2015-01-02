@@ -1,4 +1,22 @@
-hatTeamSelector
+# hatTeamSelector
 ===============
 
-Application that parses an HTML table and picks random teams with equal skill level
+Application that parses an HTML table and picks randomize teams with equal skill level.  Currently, the results are outputted to a Google spreadsheet and Plotly chart for analytics.  
+
+The main.js file should be customized for your use case.  The spreadsheet output needs to comply with the Google developer process like generating your own authentication token.  This [site](http://www.nczonline.net/blog/2014/03/04/accessing-google-spreadsheets-from-node-js/) is super useful.  To use Plotly, you will have to sign up and get a user ID and key.  In addition, you can set how many times the algorithm will iterate to converge on the best solution.  
+
+# Installation
+- Install [Node](http://nodejs.org/)
+- Install [Git](http://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
+- Git clone this repo `git clone https://github.com/ianwcarlson/hatTeamSelector` in your development directory
+- Install NPM packages
+```
+npm install
+npm install -g gulp jsdoc
+```
+
+# Documentation
+`gulp docs`
+
+
+
