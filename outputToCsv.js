@@ -1,4 +1,4 @@
-exports.writeCsv = function(teams2DArray){
+module.exports = function(teams2DArray){
 	var fs = require('fs');
 	var underscore = require('underscore');
 	var totalCsv = '';
