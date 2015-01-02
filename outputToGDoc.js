@@ -31,9 +31,9 @@
 /** 
  * Interfaces with Google Spreadsheet API and populates it with
  * player/team information.  Will format the document into four columns
- * @param {TeamProfileArrayType[]} teams2DArray Two-dimensional array
+ * @param {TeamProfileArrayType[]} teams2DArray - Two-dimensional array
  * containing all the teams and players
- * @param {SpreadsheetAuthInfoType} spreadsheetAuthInfo object containing
+ * @param {SpreadsheetAuthInfoType} spreadsheetAuthInfo - object containing
  * all the document and oauth information
  */
 module.exports = function(teams2DArray, spreadsheetAuthInfo){
@@ -87,7 +87,7 @@ module.exports = function(teams2DArray, spreadsheetAuthInfo){
 	 * Returns the maximum number of players on any one team.  This is
 	 * used to format the spreadsheet so the teams don't overlap each
 	 * other
-	 * @param {TeamProfileArrayType} teamsArray Array containing the
+	 * @param {TeamProfileArrayType} teamsArray - Array containing the
 	 * player profiles
 	 * @returns {Number} maxPlayers 
 	 * @private
@@ -108,7 +108,7 @@ module.exports = function(teams2DArray, spreadsheetAuthInfo){
 	 * Returns a new data structure that doesn't contain any of the 
 	 * object keys.  This is formatting to the spreadsheet format since
 	 * cells are indexed like arrays
-	 * @param {TeamProfileArrayType} teamsArray Array containing the
+	 * @param {TeamProfileArrayType} teamsArray - Array containing the
 	 * player profiles
 	 * @returns {GDocFormattedArrayType}
 	 * @private
@@ -127,9 +127,9 @@ module.exports = function(teams2DArray, spreadsheetAuthInfo){
 
 	/** 
 	 * Calculates new row index.  Will auto-wrap.
-	 * @param {Number} oldRowIdx Old row index
-	 * @param {Number} index Index of team 
-	 * @param {Number} maxRowsPerTeam Maximum Rows Per Team
+	 * @param {Number} oldRowIdx - Old row index
+	 * @param {Number} index - Index of team 
+	 * @param {Number} maxRowsPerTeam - Maximum Rows Per Team
 	 * @returns {Number}
 	 * @private
 	 */
@@ -144,9 +144,9 @@ module.exports = function(teams2DArray, spreadsheetAuthInfo){
 
 	/** 
 	 * Calculates new column index.  Will auto-wrap.
-	 * @param {Number} oldRowIdx Old row index
-	 * @param {Number} index Index of Team
-	 * @param {Number} maxRowsPerTeam Maximum Rows Per Team
+	 * @param {Number} oldRowIdx - Old row index
+	 * @param {Number} index - Index of Team
+	 * @param {Number} maxRowsPerTeam - Maximum Rows Per Team
 	 * @returns {Number}
 	 * @private
 	 */

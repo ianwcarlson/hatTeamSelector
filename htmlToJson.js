@@ -1,9 +1,21 @@
+/**
+ * @module htmlToJson
+ */
+
+/**
+ * Reads in an html file that was exported from google spreadsheet. 
+ * Parses the file and returns a two-dimensional array structure that
+ * contains all the player profiles
+ * The assumed schema is very specific and eventually would like to
+ * replace with database and front end.  
+ * @param {String} inputHtmlFilePath - File path of exported HTML file
+ * @returns {PlayerProfileType[]}
+ */
 module.exports = function(inputHtmlFilePath){
 	var htmlparser = require("htmlparser");
 	var fs = require('fs');
 
 	var rawHtml = fs.readFileSync(inputHtmlFilePath);
-	//var rawHtml = fs.readFileSync('./data/formResponses1.html');
 
 	var handler = new htmlparser.DefaultHandler(function (error, dom) {
 	    if (error){
@@ -45,8 +57,5 @@ module.exports = function(inputHtmlFilePath){
 		}
 		inputArray.push(newRowObject);	
 	}
-
-
-
 	return inputArray;
 };

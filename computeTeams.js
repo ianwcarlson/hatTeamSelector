@@ -1,14 +1,28 @@
-exports.run = function(inputList, numTeams){
+/**
+ * @module computeTeams
+ */
+
+/**
+ * Main compute module. Takes a two-dimensional array of players and computes
+ * N number of teams. First, baggage players are identified and separated into 
+ * a sidebar (or sideboard).  Then both the main players and the sideboard ordered 
+ * by skill level.  Then, during the emplacement, the players are assigned to each 
+ * team one at a time in a serpentine pattern.  This will automatically pick teams 
+ * that are ordered by skill level and shouldn't preferentially treat the team order
+ * order either (because of the serpentine selection pattern).  
+ * @param {PlayerProfileType[]} inputPlayerArray - Array of player profiles
+ * @param {Number} numTeams - Number of teams
+ * @returns {TeamProfileArrayType[]}
+ */
+module.exports = function(inputList, numTeams){
 
 	var underscore = require('underscore');
 
-	var conditionedPlayerList = distillPlayerList(
-		underscore.shuffle(inputList));
+	var conditionedPlayerList = distillPlayerList(inputList);
 
 	var selectNewTeam = selectNewTeamClass();
 
-	var findBaggagePairs = require('./findBaggagePairs.js');
-	var baggageList = findBaggagePairs(conditionedPlayerList);
+	var baggageList = require('./findBaggagePairs.js')(conditionedPlayerList);
 
 	// flatten and sort by skill level in descending order
 	var sortedBaggageList = underscore.sortBy(baggageList, function(listItem){
@@ -31,25 +45,25 @@ exports.run = function(inputList, numTeams){
 
 	var remainingFemalePlayers = underscore.where(sortedRemainingPlayerList, {'gender': 'female'});
 	var remainingMalePlayers = underscore.where(sortedRemainingPlayerList, {'gender': 'male'});
+	
 	// initialize team lists
-
 	var team2DList = [];
 	for (var i=0; i<numTeams; i++){
 		team2DList.push([]);
 	}
 
 	// fill up team side bars
-	var sideBar2DList = [];
+	var sideBoard2DList = [];
 	for (i=0; i<numTeams; i++){
-		sideBar2DList.push([]);
+		sideBoard2DList.push([]);
 	}
-	underscore.each(sideBar2DList, function(element, idx, list){
+	underscore.each(sideBoard2DList, function(element, idx, list){
 		element.push({'female': [], 'male': []});
 	});
 	underscore.each(sortedBaggageList, function(element, index, list){
 		var idx = selectNewTeam.getTeamSelect();
-		divideGender(sideBar2DList[idx][0], element[0]);
-		divideGender(sideBar2DList[idx][0], element[1]);
+		divideGender(sideBoard2DList[idx][0], element[0]);
+		divideGender(sideBoard2DList[idx][0], element[1]);
 		selectNewTeam.selectNewTeam();
 	});
 	selectNewTeam.resetTeamIndex();
@@ -63,10 +77,9 @@ exports.run = function(inputList, numTeams){
 	//function definitions
 	function loadTeams(gender, remainingPlayers){
 		while (remainingPlayers.length > 0 || !areSideBarsEmpty(gender)){ // may need to count sideboard to make sure it's empty
-			//underscore.each(outerElement, function(innerElement, innerIndex, list){
 			var idx = selectNewTeam.getTeamSelect();
 			// compare side board to remaining list
-			var sideboardArray = sideBar2DList[idx][0][gender];
+			var sideboardArray = sideBoard2DList[idx][0][gender];
 			if (sideboardArray.length === 0 || (remainingPlayers.length > 0 && 
 				remainingPlayers[0].skill > sideboardArray[0].skill)){
 				if (typeof remainingPlayers[0] !== 'undefined'){
@@ -78,7 +91,7 @@ exports.run = function(inputList, numTeams){
 				(sideboardArray.length > 0 && remainingPlayers[0].skill <= sideboardArray[0].skill)){
 				if (typeof sideboardArray[0] !== 'undefined'){
 					team2DList[idx].push(sideboardArray[0]);
-					sideBar2DList[idx][0][gender] = sideBar2DList[idx][0][gender].slice(1);
+					sideBoard2DList[idx][0][gender] = sideBoard2DList[idx][0][gender].slice(1);
 				}
 			} 		
 			selectNewTeam.selectNewTeam();
@@ -87,7 +100,7 @@ exports.run = function(inputList, numTeams){
 
 	function areSideBarsEmpty(gender){
 		var empty = true;
-		underscore.each(sideBar2DList, function(element, index, list){
+		underscore.each(sideBoard2DList, function(element, index, list){
 			if (element[0][gender].length !== 0){
 				empty = false;
 			}	

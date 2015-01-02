@@ -24,7 +24,7 @@
  * Finds all the baggage players and returns a new structure with
  * baggage players paired together.  Handles case sensitivity issues and
  * shortened names, but doesn't handle misspelled names
- * @param {PlayerProfileType} inputPlayerArray - Array of player profiles
+ * @param {PlayerProfileType[]} inputPlayerArray - Array of player profiles
  * @returns {BaggagePairArrayType[]}
  */
 module.exports = function(inputPlayerArray){

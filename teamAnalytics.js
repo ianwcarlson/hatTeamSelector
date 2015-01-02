@@ -1,8 +1,16 @@
-module.exports = function(teamList){
+/**
+ * @module teamAnalytics
+ */
+
+/**
+ * Calculates useful metrics that can be accessed in different ways
+ * @param {TeamProfileArrayType[]} teamsArray - Array of teams and array of players
+ */ 
+module.exports = function(teamsArray){
 	teamSkillSums = [];
 	teamGenderSums = [];
 	teamSkillGenderSums = [];
-	teamList.forEach(function(element, index, list){
+	teamsArray.forEach(function(element, index, list){
 		var sum = 0;
 		var numGirls = 0;
 		var numBoys = 0;
@@ -28,15 +36,31 @@ module.exports = function(teamList){
 	teamStdev = stats.stdev(teamSkillSums);
 
 	return{
+		/**
+		 * Get the sums of all skill levels for each player on a team
+		 * @returns {Number[]} 
+		 */
 		getTeamTotals: function(){
 			return teamSkillSums;
 		},
+		/**
+		 * Get the standard deviation of team skill levels
+		 * @returns {Number[]} 
+		 */
 		getStdev: function(){
 			return teamStdev;
 		}, 
+		/**
+		 * Get the sums of boys and girls for each team
+		 * @returns {Number[]} 
+		 */
 		getGenderTotals: function(){
 			return teamGenderSums;
 		},
+		/**
+		 * Get the sums of all skill levels for boys and girls for each team
+		 * @returns {Number[]} 
+		 */
 		getSkillByGenderTotals: function(){
 			return teamSkillGenderSums;
 		}
