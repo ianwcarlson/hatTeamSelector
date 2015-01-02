@@ -31,6 +31,7 @@ for (var idx=0; idx<NUM_ITERATIONS; idx++){
 	}
 	
 }
+process.stdout.write('\n');
 var _ = require('underscore');
 var minValue = _.min(outcomes, function(item){
 	return item.stdev;
