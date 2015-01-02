@@ -1,5 +1,4 @@
 # hatTeamSelector
-===============
 
 Application that parses an HTML table and picks randomize teams with equal skill level.  Currently, the results are outputted to a Google spreadsheet and Plotly chart for analytics.  
 
