@@ -19,7 +19,7 @@ exports.run = function(inputList, numTeams){
 	underscore.each(sortedBaggageList, function(element, index, list){
 		flattenedBaggageList.push(element[0]);
 		flattenedBaggageList.push(element[1]);
-	})
+	});
 
 
 	// sort by skill level in descending order
@@ -32,7 +32,7 @@ exports.run = function(inputList, numTeams){
 	var remainingFemalePlayers = underscore.where(sortedRemainingPlayerList, {'gender': 'female'});
 	var remainingMalePlayers = underscore.where(sortedRemainingPlayerList, {'gender': 'male'});
 	// initialize team lists
-	var numTeams = 8;
+
 	var team2DList = [];
 	for (var i=0; i<numTeams; i++){
 		team2DList.push([]);
@@ -40,18 +40,18 @@ exports.run = function(inputList, numTeams){
 
 	// fill up team side bars
 	var sideBar2DList = [];
-	for (var i=0; i<numTeams; i++){
+	for (i=0; i<numTeams; i++){
 		sideBar2DList.push([]);
 	}
 	underscore.each(sideBar2DList, function(element, idx, list){
 		element.push({'female': [], 'male': []});
-	})
+	});
 	underscore.each(sortedBaggageList, function(element, index, list){
 		var idx = selectNewTeam.getTeamSelect();
 		divideGender(sideBar2DList[idx][0], element[0]);
 		divideGender(sideBar2DList[idx][0], element[1]);
 		selectNewTeam.selectNewTeam();
-	})
+	});
 	selectNewTeam.resetTeamIndex();
 
 	loadTeams('female', remainingFemalePlayers);
@@ -91,7 +91,7 @@ exports.run = function(inputList, numTeams){
 			if (element[0][gender].length !== 0){
 				empty = false;
 			}	
-		})
+		});
 		return empty;
 	}
 
@@ -144,6 +144,7 @@ exports.run = function(inputList, numTeams){
 		newList = [];
 		underscore.each(rawPlayerList, function(element, index, list){
 			var newPlayer = {};
+			/* jshint ignore:start */
 			newPlayer.firstName = element['First Name'].toLowerCase();
 			newPlayer.lastName = element['Last Name'].toLowerCase();
 			newPlayer.state = element['State'].toLowerCase();
@@ -153,7 +154,8 @@ exports.run = function(inputList, numTeams){
 			newPlayer.gender = element['Gender'].toLowerCase();
 			newPlayer.bothDays = element['Will you attend both days'].toLowerCase();
 			newList.push(newPlayer);
-		})
+			/* jshint ignore:end */
+		});
 		return newList;
 	}
 

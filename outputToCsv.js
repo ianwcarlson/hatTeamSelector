@@ -52,7 +52,7 @@ exports.writeCsv = function(teams2DArray){
 			if (numPlayers > maxPlayers){
 				maxPlayers = numPlayers;
 			}
-		})
+		});
 		console.log('max players: ', maxPlayers);
 		return maxPlayers;
 	}
@@ -65,14 +65,14 @@ exports.writeCsv = function(teams2DArray){
 			innerArray.push(element.lastName);
 			innerArray.push(element.skill);
 			outputArray.push(innerArray);
-		})
+		});
 		return outputArray;
 	}
 
 	function calcNewRowIdx(oldRowIdx, index, maxRowsPerTeam){
 		if (index === 0){
 			oldRowIdx = 0;
-		} else if (index % 4 == 0){
+		} else if (index % 4 === 0){
 			oldRowIdx += maxRowsPerTeam;
 		}
 		return oldRowIdx;

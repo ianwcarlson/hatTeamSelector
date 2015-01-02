@@ -12,12 +12,12 @@ module.exports = function(username, key, teamAnalytics){
 		}
 
 		var boyTotals = [];
-		for (var i=0; i<teamAnalytics.size; i++){
+		for (i=0; i<teamAnalytics.size; i++){
 			boyTotals.push(totals[i].boys);
 		}
 
 		var girlTotals = [];
-		for (var i=0; i<teamAnalytics.size; i++){
+		for (i=0; i<teamAnalytics.size; i++){
 			girlTotals.push(totals[i].girls);
 		}
 
@@ -53,7 +53,4 @@ module.exports = function(username, key, teamAnalytics){
 			console.log(msg);
 		});
 	}
-
-
-
-}
+};

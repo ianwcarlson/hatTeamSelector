@@ -1,7 +1,7 @@
 var computeTeams = require('./computeTeams.js');
 
 var NUM_TEAMS = 8;
-var NUM_ITERATIONS = 1000;
+var NUM_ITERATIONS = 10000;
 var outcomes = [];
 var procCount = 0;
 var MAX_CNT_PER_TICK = 10;
@@ -49,5 +49,4 @@ teamAnalyticsChart('iancarlson3000', 'ik1ayyqjkl', {
 	skillByGenderTotals: skillByGenderTotals
 });
 
-debugger;
 outputToCsv.writeCsv(minValue.teamList);

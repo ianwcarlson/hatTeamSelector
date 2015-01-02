@@ -34,11 +34,11 @@ module.exports = function(inputHtmlFilePath){
 		var newRowObject = {};
 		for (cellIdx=1; cellIdx<rowArray.length; cellIdx++){
 			if (typeof rowArray[cellIdx].children !== 'undefined'){
-				prefix = rowArray[cellIdx].children[0];
-				if (prefix.type === "tag"){
-					prefix = rowArray[cellIdx].children[0].children[0];
+				var newPrefix = rowArray[cellIdx].children[0];
+				if (newPrefix.type === "tag"){
+					newPrefix = rowArray[cellIdx].children[0].children[0];
 				}
-				newRowObject[inputRow[cellIdx-1]] = prefix.data;
+				newRowObject[inputRow[cellIdx-1]] = newPrefix.data;
 			} else {
 				newRowObject[inputRow[cellIdx-1]] = '';
 			}
@@ -49,4 +49,4 @@ module.exports = function(inputHtmlFilePath){
 
 
 	return inputArray;
-}
+};

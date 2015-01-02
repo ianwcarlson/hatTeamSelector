@@ -17,7 +17,7 @@ module.exports = function(teamList){
 				numBoys += 1;
 				sumSkillBoys += innerElement.skill;
 			}
-		})
+		});
 		teamSkillSums.push(sum);
 		teamGenderSums.push({girls: numGirls, boys: numBoys});
 		teamSkillGenderSums.push({girls: sumSkillGirls, boys: sumSkillBoys});
