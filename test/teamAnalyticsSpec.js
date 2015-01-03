@@ -24,7 +24,7 @@ describe('How to test teamAnalytics module', function(){
 	});
 	
 	it('should have the methods work properly', function(){
-		var answers = require('./data/teamAnalyticsAnswers.js')
+		var answers = require('./data/teamAnalyticsAnswers.js');
 		var teamTotals = teamAnalytics.getTeamTotals();	
 		expect(teamTotals).toEqual(answers.teamTotalsAnswer);			
 
