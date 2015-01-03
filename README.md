@@ -19,11 +19,14 @@ Still need to refine error handling because there are a few asynchronous calls t
 - Navigate to new project file and Install NPM packages
 ```
 npm install
-npm install -g gulp jsdoc
+npm install -g gulp jsdoc jasmine-node
 ```
 
 # Documentation
 `gulp docs`
+
+# Test
+`jasmine-node test/` from root directory
 
 
 
