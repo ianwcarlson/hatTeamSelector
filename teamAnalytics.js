@@ -7,6 +7,10 @@
  * @param {TeamProfileArrayType[]} teamsArray - Array of teams and array of players
  */ 
 module.exports = function(teamsArray){
+	// temp
+	var fs = require('fs');
+	fs.writeFileSync('test/data/inputTeamAnalytics.json', JSON.stringify(teamsArray));
+
 	teamSkillSums = [];
 	teamGenderSums = [];
 	teamSkillGenderSums = [];

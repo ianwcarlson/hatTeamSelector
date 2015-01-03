@@ -1,5 +1,5 @@
 var fs = require('fs');
-var teamsData = JSON.parse(fs.readFileSync('./data/inputComputeTeams.json'));
+var teamsData = JSON.parse(fs.readFileSync('test/data/inputComputeTeams.json'));
 
 function countPlayers(input2DList){
 	playerTotal = 0;
