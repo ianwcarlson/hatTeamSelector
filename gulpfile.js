@@ -3,7 +3,7 @@ var jshint = require('gulp-jshint');
 var jsdoc = require('gulp-jsdoc');
 
 gulp.task('lint', function(){
-	return gulp.src('*.js')
+	return gulp.src(['*.js', 'test/*.js'])
 		.pipe(jshint())
 		.pipe(jshint.reporter('default'));
 });
