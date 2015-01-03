@@ -15,7 +15,7 @@
  * @returns {TeamProfileArrayType[]}
  */
 module.exports = function(inputList, numTeams){
-	debugger;
+
 	var underscore = require('underscore');
 
 	var conditionedPlayerList = distillPlayerList(inputList);

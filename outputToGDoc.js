@@ -38,7 +38,6 @@
  */
 module.exports = function(teams2DArray, spreadsheetAuthInfo){
 	var fs = require('fs');
-	debugger;
 	var underscore = require('underscore');
 	var totalCsv = '';
 	var json2csv = require('json2csv');
