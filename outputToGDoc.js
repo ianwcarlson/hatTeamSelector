@@ -36,7 +36,7 @@
  * @param {SpreadsheetAuthInfoType} spreadsheetAuthInfo - object containing
  * all the document and oauth information
  */
-module.exports = function(teams2DArray, spreadsheetAuthInfo){
+module.exports = function(teams2DArray, spreadsheetAuthInfo, callback){
 	var fs = require('fs');
 	var underscore = require('underscore');
 	var totalCsv = '';
@@ -59,7 +59,8 @@ module.exports = function(teams2DArray, spreadsheetAuthInfo){
 	}, function sheetReady(err, spreadsheet) {
 
 	    if (err) {
-	        throw err;
+	        callback(err);
+	        return;
 	    }
 	    var rowIdx = 0;
 		var colIdx = 1;
@@ -78,8 +79,12 @@ module.exports = function(teams2DArray, spreadsheetAuthInfo){
 		});
 
 		spreadsheet.send(function(err) {
-	    	if(err) throw err;
+	    	if(err){
+	    		callback(err);
+	    		return;
+	    	}
 	    });	
+	    callback(null);
 	});
 
 	/** 

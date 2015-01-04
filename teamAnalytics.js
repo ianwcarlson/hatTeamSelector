@@ -43,6 +43,7 @@ module.exports = function(teamsArray){
 		/**
 		 * Get the sums of all skill levels for each player on a team
 		 * @returns {Number[]} 
+		 * @public
 		 */
 		getTeamTotals: function(){
 			return teamSkillSums;
@@ -50,6 +51,7 @@ module.exports = function(teamsArray){
 		/**
 		 * Get the standard deviation of team skill levels
 		 * @returns {Number[]} 
+		 * @public
 		 */
 		getStdev: function(){
 			return teamStdev;
@@ -57,6 +59,7 @@ module.exports = function(teamsArray){
 		/**
 		 * Get the sums of boys and girls for each team
 		 * @returns {Number[]} 
+		 * @public
 		 */
 		getGenderTotals: function(){
 			return teamGenderSums;
@@ -64,6 +67,7 @@ module.exports = function(teamsArray){
 		/**
 		 * Get the sums of all skill levels for boys and girls for each team
 		 * @returns {Number[]} 
+		 * @public
 		 */
 		getSkillByGenderTotals: function(){
 			return teamSkillGenderSums;

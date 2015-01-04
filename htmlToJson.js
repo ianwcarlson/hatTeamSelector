@@ -17,13 +17,7 @@ module.exports = function(inputHtmlFilePath){
 
 	var rawHtml = fs.readFileSync(inputHtmlFilePath);
 
-	var handler = new htmlparser.DefaultHandler(function (error, dom) {
-	    if (error){
-
-	    } else {
-
-	    }
-	});
+	var handler = new htmlparser.DefaultHandler();
 	var parser = new htmlparser.Parser(handler);
 	parser.parseComplete(rawHtml);
 

@@ -25,9 +25,13 @@
  * Export team metrics to Plotly web service
  * @param	{String}	username  - created by opening Plotly account
  * @param	{String}	key - generated when opening Plotly account
- * @param	{TeamObjectType[]}	teamMetricsArray object that contains size, gender totals, and skill by gender totals 
+ * @param	{TeamObjectType[]}	teamMetricsArray object that contains size, 
+ * gender totals, and skill by gender totals 
+ * @param	{Function}	called when error occurs or operation complete.  
+ * First parameter is error that is propagated from Plotly API, or null if
+ * not error occurred.
  */
-module.exports = function(username, key, teamMetricsArray){
+module.exports = function(username, key, teamMetricsArray, callback){
 	var plotly = require('plotly')(username, key);
 
 	plotSums('Gender Totals', teamMetricsArray.genderTotals, 'Player Sums');
@@ -87,7 +91,11 @@ module.exports = function(username, key, teamMetricsArray){
 		var graph_options = {layout: layout, filename: filename, fileopt: 'overwrite'};
 
 		plotly.plot(data, graph_options, function(err, msg){
-			console.log(msg);
+			if (err){
+				callback(err);
+			} else {
+				callback(null);
+			}
 		});
 	}
 };

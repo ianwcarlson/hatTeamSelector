@@ -38,12 +38,19 @@ console.log('Minimum stdev: ', minValue.stdev);
 
 var genderTotals = myTeamAnalytics.getGenderTotals();
 var skillByGenderTotals = myTeamAnalytics.getSkillByGenderTotals();
+
+// need to customize the following
 require('./outputToPlotly.js')('iancarlson3000', 'ik1ayyqjkl', {
 	size: NUM_TEAMS, 
 	genderTotals: genderTotals,
 	skillByGenderTotals: skillByGenderTotals
+}, function(err){
+	if (err){ 
+		console.log('Error in Plotly: ', err);	
+	}
 });
 
+// need to customize the following
 var spreadsheetAuthInfo = {
 	spreadsheetID: '1V_lQ5YNCSLV9pS4PuB-XoXmc9sD4RnMOwaC8gJ_rEig',
 	worksheetID: 'od6',
@@ -51,4 +58,8 @@ var spreadsheetAuthInfo = {
 	keyFile: 'my-key-file.pem'
 };
 
-require('./outputToGDoc.js')(minValue.teamList, spreadsheetAuthInfo);
+require('./outputToGDoc.js')(minValue.teamList, spreadsheetAuthInfo, function(err){
+	if (err){
+		console.log('Error in Google Spreadsheet: ', err);
+	}
+});
