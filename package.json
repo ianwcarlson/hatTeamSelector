@@ -17,16 +17,19 @@
   },
   "homepage": "https://github.com/ianwcarlson/hatTeamSelector",
   "dependencies": {
-    "htmlparser": "^1.7.7",
-    "underscore": "^1.7.0",
-    "json2csv": "^2.2.1",
     "edit-google-spreadsheet": "^0.2.13",
+    "fast-csv": "^0.6.0",
+    "htmlparser": "^1.7.7",
+    "json2csv": "^2.2.1",
+    "plotly": "^0.2.15",
+    "q": "^1.4.1",
     "stats-lite": "^1.0.3",
-    "plotly": "^0.2.15"
+    "underscore": "^1.7.0"
   },
   "devDependencies": {
     "gulp": "^3.8.10",
+    "gulp-jsdoc": "^0.1.4",
     "gulp-jshint": "^1.9.0",
-    "gulp-jsdoc": "^0.1.4"
+    "node-debug": "^0.1.0"
   }
 }
