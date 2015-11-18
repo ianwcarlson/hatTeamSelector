@@ -92,6 +92,7 @@ module.exports = function(username, key, teamMetricsArray, callback){
 
 		plotly.plot(data, graph_options, function(err, msg){
 			if (err){
+				console.log('failed to post Plotly data');
 				callback(err);
 			} else {
 				callback(null);

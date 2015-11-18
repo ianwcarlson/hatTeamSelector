@@ -58,12 +58,21 @@ module.exports = function(teams2DArray, spreadsheetAuthInfo, callback){
 
 	}, function sheetReady(err, spreadsheet) {
 
+		//if(err) throw err;
+        //
+		//spreadsheet.add({ 3: { 5: "hello!" } });
+        //
+		//spreadsheet.send(function(err) {
+		//	if(err) throw err;
+		//	console.log("Updated Cell at row 3, column 5 to 'hello!'");
+		//});
+
 	    if (err) {
 	        callback(err);
 	        return;
 	    }
-	    var rowIdx = 0;
-		var colIdx = 1;
+	    var rowIdx = 3;
+        var colIdx = 1;
 	    teams2DArray.forEach(function(element, index){
 
 	    	rowIdx = calcNewRowIdx(rowIdx, index, maxRowsPerTeam);
@@ -71,19 +80,21 @@ module.exports = function(teams2DArray, spreadsheetAuthInfo, callback){
 	    	var teamArray = removeObjectKeys(element);
 	    	var rowString = rowIdx.toString();
 	    	var colString = colIdx.toString();
+			console.log('row: ', rowString);
+			console.log('column: ', colString);
 	    	var newSheetObject = {};
 	    	var newColObj = {};
 	    	newColObj[colString] = teamArray;
-	    	newSheetObject[rowString] = newColObj; 
-			spreadsheet.add(newSheetObject);			
-		});
+	    	newSheetObject[rowString] = newColObj;
+			spreadsheet.add(newSheetObject);
+        });
 
-		spreadsheet.send(function(err) {
+        spreadsheet.send(function(err) {
 	    	if(err){
 	    		callback(err);
 	    		return;
 	    	}
-	    });	
+	    });
 	    callback(null);
 	});
 
@@ -119,7 +130,7 @@ module.exports = function(teams2DArray, spreadsheetAuthInfo, callback){
 	 */
 	function removeObjectKeys(teamArray){
 		var outputArray = [];
-		teamArray.forEach(function(element, index){
+		teamArray.forEach(function(element){
 			var innerArray = [];
 			innerArray.push(element.firstName);
 			innerArray.push(element.lastName);
@@ -139,7 +150,7 @@ module.exports = function(teams2DArray, spreadsheetAuthInfo, callback){
 	 */
 	function calcNewRowIdx(oldRowIdx, index, maxRowsPerTeam){
 		if (index === 0){
-			oldRowIdx = 0;
+			oldRowIdx = 1;
 		} else if (index % 4 === 0){
 			oldRowIdx += maxRowsPerTeam;
 		}

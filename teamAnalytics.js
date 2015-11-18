@@ -11,9 +11,11 @@ module.exports = function(teamsArray){
 	var fs = require('fs');
 	fs.writeFileSync('test/data/inputTeamAnalytics.json', JSON.stringify(teamsArray));
 
-	teamSkillSums = [];
-	teamGenderSums = [];
-	teamSkillGenderSums = [];
+	var teamSkillSums = [];
+	var teamSkillGenderSums = [];
+	var teamTotalNum = [];
+	var teamGirlSums = [];
+	var teamBoySums = [];
 	teamsArray.forEach(function(element, index, list){
 		var sum = 0;
 		var numGirls = 0;
@@ -21,25 +23,36 @@ module.exports = function(teamsArray){
 		var sumSkillBoys = 0;
 		var sumSkillGirls = 0;
 		element.forEach(function(innerElement, innerIndex, innerList){
-			sum += innerElement.skill;
+			sum += innerElement.skill + innerElement.speed;
 			if (innerElement.gender === 'female'){
 				numGirls += 1;
-				sumSkillGirls += innerElement.skill;
+				sumSkillGirls += innerElement.skill + innerElement.speed;
 			} else {
 				numBoys += 1;
-				sumSkillBoys += innerElement.skill;
+				sumSkillBoys += innerElement.skill + innerElement.speed;
 			}
 		});
+		teamTotalNum.push({girls: numGirls, boys: numBoys});
 		teamSkillSums.push(sum);
-		teamGenderSums.push({girls: numGirls, boys: numBoys});
+		teamBoySums.push(numBoys);
+		teamGirlSums.push(numGirls);
 		teamSkillGenderSums.push({girls: sumSkillGirls, boys: sumSkillBoys});
 	});
 
 	var stats = require('stats-lite');
-	teamVariance = stats.variance(teamSkillSums);
-	teamStdev = stats.stdev(teamSkillSums);
+	var teamSkillSpeedStdev = stats.stdev(teamSkillSums);
+	var teamTotalStdev = stats.stdev(teamTotalNum);
+	var teamBoyStdev = stats.stdev(teamBoySums);
+	var teamGirlStdev = stats.stdev(teamGirlSums);
 
 	return{
+		getTeamNumStdev: function(){
+			return {
+				total: teamTotalStdev,
+				boys: teamBoyStdev,
+				girls: teamGirlStdev
+			};
+		},
 		/**
 		 * Get the sums of all skill levels for each player on a team
 		 * @returns {Number[]} 
@@ -54,7 +67,7 @@ module.exports = function(teamsArray){
 		 * @public
 		 */
 		getStdev: function(){
-			return teamStdev;
+			return teamSkillSpeedStdev;
 		}, 
 		/**
 		 * Get the sums of boys and girls for each team
@@ -62,7 +75,7 @@ module.exports = function(teamsArray){
 		 * @public
 		 */
 		getGenderTotals: function(){
-			return teamGenderSums;
+			return teamTotalNum;
 		},
 		/**
 		 * Get the sums of all skill levels for boys and girls for each team

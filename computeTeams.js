@@ -26,7 +26,7 @@ module.exports = function(inputList, numTeams){
 
 	// flatten and sort by skill level in descending order
 	var sortedBaggageList = underscore.sortBy(baggageList, function(listItem){
-		return listItem[0].skill + listItem[1].skill;
+		return listItem[0].skill + listItem[0].speed + listItem[1].skill + + listItem[1].speed;
 	});
 	sortedBaggageList.reverse();
 	var flattenedBaggageList = [];
@@ -39,7 +39,7 @@ module.exports = function(inputList, numTeams){
 	// sort by skill level in descending order
 	var remainingPlayerList = underscore.difference(conditionedPlayerList, flattenedBaggageList);
 	var sortedRemainingPlayerList = underscore.sortBy(remainingPlayerList, function(item){
-		return item.skill;
+		return item.skill + item.speed;
 	});
 	sortedRemainingPlayerList.reverse();
 
