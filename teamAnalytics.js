@@ -16,6 +16,8 @@ module.exports = function(teamsArray){
 	var teamTotalNum = [];
 	var teamGirlSums = [];
 	var teamBoySums = [];
+	var teamBoySkillSums = [];
+	var teamGirlSkillSums = [];
 	teamsArray.forEach(function(element, index, list){
 		var sum = 0;
 		var numGirls = 0;
@@ -25,10 +27,18 @@ module.exports = function(teamsArray){
 		element.forEach(function(innerElement, innerIndex, innerList){
 			sum += innerElement.skill + innerElement.speed;
 			if (innerElement.gender === 'female'){
-				numGirls += 1;
+				if (innerElement.bothDays.toLowerCase() === 'yes')
+					numGirls += 1;
+				else
+					numGirls += 0.5;
+
 				sumSkillGirls += innerElement.skill + innerElement.speed;
 			} else {
-				numBoys += 1;
+				if (innerElement.bothDays.toLowerCase() === 'yes')
+					numBoys += 1;
+				else
+					numBoys += 0.5;
+
 				sumSkillBoys += innerElement.skill + innerElement.speed;
 			}
 		});
@@ -36,14 +46,19 @@ module.exports = function(teamsArray){
 		teamSkillSums.push(sum);
 		teamBoySums.push(numBoys);
 		teamGirlSums.push(numGirls);
+		teamBoySkillSums.push(sumSkillBoys/numBoys);
+		teamGirlSkillSums.push(sumSkillGirls/numGirls);
 		teamSkillGenderSums.push({girls: sumSkillGirls, boys: sumSkillBoys});
 	});
+
 
 	var stats = require('stats-lite');
 	var teamSkillSpeedStdev = stats.stdev(teamSkillSums);
 	var teamTotalStdev = stats.stdev(teamTotalNum);
 	var teamBoyStdev = stats.stdev(teamBoySums);
 	var teamGirlStdev = stats.stdev(teamGirlSums);
+	var teamBoySkillStdev = stats.stdev(teamBoySkillSums);
+	var teamGirlSkillStdev = stats.stdev(teamGirlSkillSums);
 
 	return{
 		getTeamNumStdev: function(){
@@ -82,8 +97,20 @@ module.exports = function(teamsArray){
 		 * @returns {Number[]} 
 		 * @public
 		 */
+		getStdevSkillByGenderTotals: function(){
+			return {
+				boys: teamBoySkillStdev,
+				girls: teamGirlSkillStdev
+			};
+		},
+		/**
+		 * Get the sums of all skill levels for boys and girls for each team
+		 * @returns {Number[]}
+		 * @public
+		 */
 		getSkillByGenderTotals: function(){
 			return teamSkillGenderSums;
 		}
+
 	};
 };

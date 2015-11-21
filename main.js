@@ -1,7 +1,9 @@
 var NUM_TEAMS = 8;
-var NUM_ITERATIONS = 10000;
+var NUM_ITERATIONS = 30000;
 var outcomes = [];
 var procCount = 0;
+var lowestScore = Math.pow(2, 32) - 1;
+var lowestOutcome = {};
 var MAX_CNT_PER_TICK = 10;
 
 var _ = require('underscore');
@@ -23,13 +25,17 @@ function run(parsedList){
 		var myTeamAnalytics = teamAnalyticsModule(team2DList);
 		var totals = myTeamAnalytics.getTeamTotals();
 		var stdev = myTeamAnalytics.getStdev();
+		var stdevByGender = myTeamAnalytics.getStdevSkillByGenderTotals();
 		var totalsStdev = myTeamAnalytics.getTeamNumStdev();
-		var score = stdev*3 + totalsStdev.boys + totalsStdev.girls*2;
+		var score = stdevByGender.boys + stdevByGender.girls + totalsStdev.boys + totalsStdev.girls*2;
 
-		outcomes.push({
-			teamList: team2DList,
-			score: score
-		});
+		if (score < lowestScore){
+			lowestOutcome = {
+				teamList: team2DList,
+				score: score
+			};
+			lowestScore = score;
+		}
 		if (procCount===MAX_CNT_PER_TICK){
 			procCount = 0;
 			process.stdout.write('.');
@@ -40,14 +46,11 @@ function run(parsedList){
 	}
 	process.stdout.write('\n');
 
-	var minValue = _.min(outcomes, function(item){
-		return item.score;
-	});
-	console.log('Minimum score: ', minValue.score);
-	var myTeamAnalytics = teamAnalyticsModule(minValue.teamList);
+	console.log('Minimum score: ', lowestOutcome.score);
+	var myTeamAnalytics = teamAnalyticsModule(lowestOutcome.teamList);
 	var genderTotals = myTeamAnalytics.getGenderTotals();
 	var skillByGenderTotals = myTeamAnalytics.getSkillByGenderTotals();
-git
+
 // need to customize the following
 	require('./outputToPlotly.js')('iancarlson3000', 'ik1ayyqjkl', {
 		size: NUM_TEAMS,
@@ -67,7 +70,7 @@ git
 		keyFile: 'my-key-file.pem'
 	};
 
-	require('./outputToGDoc.js')(minValue.teamList, spreadsheetAuthInfo, function(err){
+	require('./outputToGDoc.js')(lowestOutcome.teamList, spreadsheetAuthInfo, function(err){
 		if (err){
 			console.log('Error in Google Spreadsheet: ', err);
 		}
